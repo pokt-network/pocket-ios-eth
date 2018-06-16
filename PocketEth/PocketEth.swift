@@ -14,23 +14,21 @@ import BigInt
 
 public struct PocketEth: PocketPlugin {
     public static func createWallet(privateKey: String, data: [AnyHashable : Any]?) throws -> Wallet {
-        var wallet = Wallet()
-        let keyStore = PlainKeystore.init(privateKey: privateKey)
-        wallet.address = (keyStore?.addresses?.first?.address)!
-        wallet.privateKey = try! String.init(data: (keyStore?.UNSAFE_getPrivateKeyData(account: (keyStore?.addresses?.first)!))!, encoding: .utf8)!
-        wallet.network = "ETH"
-        wallet.data = data
-        return wallet;
+        guard let keyStore = PlainKeystore.init(privateKey: privateKey) else {
+            throw PocketPluginError.walletCreationError("Invalid private key")
+        }
+        guard let address = keyStore.addresses?.first else {
+            throw PocketPluginError.walletCreationError("Invalid wallet address")
+        }
+        guard let keystorePrivateKey = String.init(data: try keyStore.UNSAFE_getPrivateKeyData(account: address), encoding: .utf8) else {
+            throw PocketPluginError.walletCreationError("Invalid private key")
+        }
+        let wallet = Wallet(address: address.address, privateKey: keystorePrivateKey, network: "ETH", data: data)
+        return wallet
     }
     
     public static func importWallet(privateKey: String, address: String?, data: [AnyHashable : Any]?) throws -> Wallet {
-        var wallet = Wallet()
-        let keyStore = PlainKeystore.init(privateKey: privateKey)
-        wallet.address = (keyStore?.addresses?.first?.address)!
-        wallet.privateKey = try! String.init(data: (keyStore?.UNSAFE_getPrivateKeyData(account: (keyStore?.addresses?.first)!))!, encoding: .utf8)!
-        wallet.network = "ETH"
-        wallet.data = data
-        return wallet;
+        return try createWallet(privateKey: privateKey, data: data)
     }
     
     public static func createTransaction(wallet: Wallet, params: [AnyHashable : Any]) throws -> Transaction {
@@ -49,7 +47,7 @@ public struct PocketEth: PocketPlugin {
         // TO
         let toString = params["to"] as? String ?? ""
         guard let to = EthereumAddress.init(toString, type: EthereumAddress.AddressType.normal) else {
-            throw PockePluginError.transactionCreationError("Invalid TO Address")
+            throw PocketPluginError.transactionCreationError("Invalid TO Address")
         }
         
         // VALUE
@@ -94,7 +92,7 @@ public struct PocketEth: PocketPlugin {
             queryParams["rpc_method"] = rpcMethod
             queryParams["rpc_params"] = rpcParams
         } else {
-            throw PockePluginError.transactionCreationError("Invalid RPC params")
+            throw PocketPluginError.queryCreationError("Invalid RPC params")
         }
         pocketQuery.data = queryParams
         

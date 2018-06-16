@@ -47,7 +47,7 @@ CHECKOUT OPTIONS:
     :commit: bbbbee8bd95dd72e3f70d6f0a9c6aff9af4dc5bb
     :git: https://github.com/krzyzanowskim/CryptoSwift.git
   Pocket:
-    :commit: ad6c5d66519682f7d47e54588ba4f6e506a69019
+    :commit: 1b8c566f1a693310a1b725f0915af3aed55276d8
     :git: https://github.com/pokt-network/pocket-ios-sdk.git
   web3swift:
     :commit: 04876fc25ff38d60ff9e853219805e34e629d653
@@ -59,7 +59,7 @@ SPEC CHECKSUMS:
   BigInt: 8e8a52161c745cd3ab78e3dc346a9fbee51e6cf6
   CryptoSwift: 6c778d69282bed3b4e975ff97a79d074f20bb011
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
-  Pocket: 3e4dec66047385a5c60a91b95d15e752671bb493
+  Pocket: 48760328a2cb789464b6ccebee5076ce93f6518a
   Result: 1b3e431f37cbcd3ad89c6aa9ab0ae55515fae3b6
   secp256k1_ios: ac9ef04e761f43c58012b28548afa91493761f17
   SipHash: c6e9e43e9c531b5bc6602545130c26194a6d31ce
