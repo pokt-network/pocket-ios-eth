@@ -46,9 +46,10 @@ public struct PocketEth: PocketPlugin {
         
         // TO
         let toString = params["to"] as? String ?? ""
-        guard let to = EthereumAddress.init(toString, type: EthereumAddress.AddressType.normal) else {
-            throw PocketPluginError.transactionCreationError("Invalid TO Address")
-        }
+        let to = EthereumAddress.init(toString, type: EthereumAddress.AddressType.normal)
+//        guard let to = EthereumAddress.init(toString, type: EthereumAddress.AddressType.normal) else {
+//            throw PocketPluginError.transactionCreationError("Invalid TO Address")
+//        }
         
         // VALUE
         let valueUint = params["value"] as? UInt ?? 0

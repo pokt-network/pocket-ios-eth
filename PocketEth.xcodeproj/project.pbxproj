@@ -7,31 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		108B5FDE20D19A4C00BA52DA /* PocketEth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108B5FDD20D19A4C00BA52DA /* PocketEth.swift */; };
-		10BF3EB420D1979500B29FCF /* PocketEthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BF3EB320D1979500B29FCF /* PocketEthTests.swift */; };
-		A2F533EFA370F264991FE895 /* Pods_PocketEth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35ECCB8F87AF04311A6C42E6 /* Pods_PocketEth.framework */; };
-		C43DDC933084CCD7DA0E0E81 /* Pods_PocketEthTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DCCA3E57EDA6A6ADDB31735 /* Pods_PocketEthTests.framework */; };
+		100B9B0A20DC2053001147D1 /* PocketEth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 100B9B0120DC2053001147D1 /* PocketEth.framework */; };
+		100B9B0F20DC2053001147D1 /* PocketEthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100B9B0E20DC2053001147D1 /* PocketEthTests.swift */; };
+		100B9B1120DC2053001147D1 /* PocketEth.h in Headers */ = {isa = PBXBuildFile; fileRef = 100B9B0320DC2053001147D1 /* PocketEth.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		100B9B1920DC207C001147D1 /* PocketEth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100B9B1820DC207C001147D1 /* PocketEth.swift */; };
+		24897021F21AC923E9E55D70 /* Pods_PocketEthTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DCCA3E57EDA6A6ADDB31735 /* Pods_PocketEthTests.framework */; };
+		8B5E0A62E966FD4B19A0FF77 /* Pods_PocketEth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 35ECCB8F87AF04311A6C42E6 /* Pods_PocketEth.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		10BF3EB020D1979500B29FCF /* PBXContainerItemProxy */ = {
+		100B9B0B20DC2053001147D1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 10BF3E9320D1979400B29FCF /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 10BF3E9A20D1979400B29FCF;
+			remoteGlobalIDString = 100B9B0020DC2053001147D1;
 			remoteInfo = PocketEth;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		09DD1005DC012632999AEF44 /* Pods-PocketEth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketEth.release.xcconfig"; path = "Pods/Target Support Files/Pods-PocketEth/Pods-PocketEth.release.xcconfig"; sourceTree = "<group>"; };
-		108B5FDD20D19A4C00BA52DA /* PocketEth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketEth.swift; sourceTree = "<group>"; };
-		108B5FDF20D19A8D00BA52DA /* PocketEth-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PocketEth-Bridging-Header.h"; sourceTree = "<group>"; };
-		10BF3E9B20D1979400B29FCF /* PocketEth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PocketEth.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		10BF3EAA20D1979500B29FCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		10BF3EAF20D1979500B29FCF /* PocketEthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PocketEthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		10BF3EB320D1979500B29FCF /* PocketEthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketEthTests.swift; sourceTree = "<group>"; };
-		10BF3EB520D1979600B29FCF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		100B9B0120DC2053001147D1 /* PocketEth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PocketEth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		100B9B0320DC2053001147D1 /* PocketEth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PocketEth.h; sourceTree = "<group>"; };
+		100B9B0420DC2053001147D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		100B9B0920DC2053001147D1 /* PocketEthTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PocketEthTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		100B9B0E20DC2053001147D1 /* PocketEthTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketEthTests.swift; sourceTree = "<group>"; };
+		100B9B1020DC2053001147D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		100B9B1820DC207C001147D1 /* PocketEth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PocketEth.swift; sourceTree = "<group>"; };
 		35ECCB8F87AF04311A6C42E6 /* Pods_PocketEth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PocketEth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DCCA3E57EDA6A6ADDB31735 /* Pods_PocketEthTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PocketEthTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A33B6F118DAC754812FF2677 /* Pods-PocketEthTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PocketEthTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PocketEthTests/Pods-PocketEthTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -40,30 +42,50 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		10BF3E9820D1979400B29FCF /* Frameworks */ = {
+		100B9AFD20DC2053001147D1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2F533EFA370F264991FE895 /* Pods_PocketEth.framework in Frameworks */,
+				8B5E0A62E966FD4B19A0FF77 /* Pods_PocketEth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		10BF3EAC20D1979500B29FCF /* Frameworks */ = {
+		100B9B0620DC2053001147D1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C43DDC933084CCD7DA0E0E81 /* Pods_PocketEthTests.framework in Frameworks */,
+				100B9B0A20DC2053001147D1 /* PocketEth.framework in Frameworks */,
+				24897021F21AC923E9E55D70 /* Pods_PocketEthTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		100B9B0220DC2053001147D1 /* PocketEth */ = {
+			isa = PBXGroup;
+			children = (
+				100B9B1820DC207C001147D1 /* PocketEth.swift */,
+				100B9B0320DC2053001147D1 /* PocketEth.h */,
+				100B9B0420DC2053001147D1 /* Info.plist */,
+			);
+			path = PocketEth;
+			sourceTree = "<group>";
+		};
+		100B9B0D20DC2053001147D1 /* PocketEthTests */ = {
+			isa = PBXGroup;
+			children = (
+				100B9B0E20DC2053001147D1 /* PocketEthTests.swift */,
+				100B9B1020DC2053001147D1 /* Info.plist */,
+			);
+			path = PocketEthTests;
+			sourceTree = "<group>";
+		};
 		10BF3E9220D1979400B29FCF = {
 			isa = PBXGroup;
 			children = (
-				10BF3E9D20D1979400B29FCF /* PocketEth */,
-				10BF3EB220D1979500B29FCF /* PocketEthTests */,
+				100B9B0220DC2053001147D1 /* PocketEth */,
+				100B9B0D20DC2053001147D1 /* PocketEthTests */,
 				10BF3E9C20D1979400B29FCF /* Products */,
 				41A87E2861AAF08489878B9D /* Pods */,
 				D49AC11FD636C1EF2EC00582 /* Frameworks */,
@@ -73,29 +95,10 @@
 		10BF3E9C20D1979400B29FCF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				10BF3E9B20D1979400B29FCF /* PocketEth.app */,
-				10BF3EAF20D1979500B29FCF /* PocketEthTests.xctest */,
+				100B9B0120DC2053001147D1 /* PocketEth.framework */,
+				100B9B0920DC2053001147D1 /* PocketEthTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		10BF3E9D20D1979400B29FCF /* PocketEth */ = {
-			isa = PBXGroup;
-			children = (
-				10BF3EAA20D1979500B29FCF /* Info.plist */,
-				108B5FDD20D19A4C00BA52DA /* PocketEth.swift */,
-				108B5FDF20D19A8D00BA52DA /* PocketEth-Bridging-Header.h */,
-			);
-			path = PocketEth;
-			sourceTree = "<group>";
-		};
-		10BF3EB220D1979500B29FCF /* PocketEthTests */ = {
-			isa = PBXGroup;
-			children = (
-				10BF3EB320D1979500B29FCF /* PocketEthTests.swift */,
-				10BF3EB520D1979600B29FCF /* Info.plist */,
-			);
-			path = PocketEthTests;
 			sourceTree = "<group>";
 		};
 		41A87E2861AAF08489878B9D /* Pods */ = {
@@ -120,16 +123,27 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		100B9AFE20DC2053001147D1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				100B9B1120DC2053001147D1 /* PocketEth.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		10BF3E9A20D1979400B29FCF /* PocketEth */ = {
+		100B9B0020DC2053001147D1 /* PocketEth */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 10BF3EB820D1979600B29FCF /* Build configuration list for PBXNativeTarget "PocketEth" */;
+			buildConfigurationList = 100B9B1220DC2053001147D1 /* Build configuration list for PBXNativeTarget "PocketEth" */;
 			buildPhases = (
-				B377FA83C110A0F997F56412 /* [CP] Check Pods Manifest.lock */,
-				10BF3E9720D1979400B29FCF /* Sources */,
-				10BF3E9820D1979400B29FCF /* Frameworks */,
-				10BF3E9920D1979400B29FCF /* Resources */,
-				9B4DA22C66A4C33E60B9ADF6 /* [CP] Embed Pods Frameworks */,
+				D804FD4530690C9FF28B0D36 /* [CP] Check Pods Manifest.lock */,
+				100B9AFC20DC2053001147D1 /* Sources */,
+				100B9AFD20DC2053001147D1 /* Frameworks */,
+				100B9AFE20DC2053001147D1 /* Headers */,
+				100B9AFF20DC2053001147D1 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -137,26 +151,27 @@
 			);
 			name = PocketEth;
 			productName = PocketEth;
-			productReference = 10BF3E9B20D1979400B29FCF /* PocketEth.app */;
-			productType = "com.apple.product-type.application";
+			productReference = 100B9B0120DC2053001147D1 /* PocketEth.framework */;
+			productType = "com.apple.product-type.framework";
 		};
-		10BF3EAE20D1979500B29FCF /* PocketEthTests */ = {
+		100B9B0820DC2053001147D1 /* PocketEthTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 10BF3EBB20D1979600B29FCF /* Build configuration list for PBXNativeTarget "PocketEthTests" */;
+			buildConfigurationList = 100B9B1520DC2053001147D1 /* Build configuration list for PBXNativeTarget "PocketEthTests" */;
 			buildPhases = (
-				4AE3357F3935642C99278CB1 /* [CP] Check Pods Manifest.lock */,
-				10BF3EAB20D1979500B29FCF /* Sources */,
-				10BF3EAC20D1979500B29FCF /* Frameworks */,
-				10BF3EAD20D1979500B29FCF /* Resources */,
+				88123CB4D28D934E16F9FA37 /* [CP] Check Pods Manifest.lock */,
+				100B9B0520DC2053001147D1 /* Sources */,
+				100B9B0620DC2053001147D1 /* Frameworks */,
+				100B9B0720DC2053001147D1 /* Resources */,
+				CFD569F6020A40A55E48874B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				10BF3EB120D1979500B29FCF /* PBXTargetDependency */,
+				100B9B0C20DC2053001147D1 /* PBXTargetDependency */,
 			);
 			name = PocketEthTests;
 			productName = PocketEthTests;
-			productReference = 10BF3EAF20D1979500B29FCF /* PocketEthTests.xctest */;
+			productReference = 100B9B0920DC2053001147D1 /* PocketEthTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -169,13 +184,12 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Luis De Leon";
 				TargetAttributes = {
-					10BF3E9A20D1979400B29FCF = {
+					100B9B0020DC2053001147D1 = {
 						CreatedOnToolsVersion = 9.4;
 						LastSwiftMigration = 0940;
 					};
-					10BF3EAE20D1979500B29FCF = {
+					100B9B0820DC2053001147D1 = {
 						CreatedOnToolsVersion = 9.4;
-						TestTargetID = 10BF3E9A20D1979400B29FCF;
 					};
 				};
 			};
@@ -192,21 +206,21 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				10BF3E9A20D1979400B29FCF /* PocketEth */,
-				10BF3EAE20D1979500B29FCF /* PocketEthTests */,
+				100B9B0020DC2053001147D1 /* PocketEth */,
+				100B9B0820DC2053001147D1 /* PocketEthTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		10BF3E9920D1979400B29FCF /* Resources */ = {
+		100B9AFF20DC2053001147D1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		10BF3EAD20D1979500B29FCF /* Resources */ = {
+		100B9B0720DC2053001147D1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -216,7 +230,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4AE3357F3935642C99278CB1 /* [CP] Check Pods Manifest.lock */ = {
+		88123CB4D28D934E16F9FA37 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -234,20 +248,22 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9B4DA22C66A4C33E60B9ADF6 /* [CP] Embed Pods Frameworks */ = {
+		CFD569F6020A40A55E48874B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PocketEth/Pods-PocketEth-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-PocketEthTests/Pods-PocketEthTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-Synchronous/Alamofire_Synchronous.framework",
 				"${BUILT_PRODUCTS_DIR}/BigInt/BigInt.framework",
 				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Pocket/Pocket.framework",
+				"${BUILT_PRODUCTS_DIR}/RNCryptor/RNCryptor.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
 				"${BUILT_PRODUCTS_DIR}/libsodium/libsodium.framework",
 				"${BUILT_PRODUCTS_DIR}/secp256k1_ios/secp256k1_ios.framework",
 				"${BUILT_PRODUCTS_DIR}/web3swift/web3swift.framework",
@@ -259,18 +275,20 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/BigInt.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pocket.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RNCryptor.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SipHash.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libsodium.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/secp256k1_ios.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/web3swift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PocketEth/Pods-PocketEth-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PocketEthTests/Pods-PocketEthTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B377FA83C110A0F997F56412 /* [CP] Check Pods Manifest.lock */ = {
+		D804FD4530690C9FF28B0D36 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -291,33 +309,130 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		10BF3E9720D1979400B29FCF /* Sources */ = {
+		100B9AFC20DC2053001147D1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				108B5FDE20D19A4C00BA52DA /* PocketEth.swift in Sources */,
+				100B9B1920DC207C001147D1 /* PocketEth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		10BF3EAB20D1979500B29FCF /* Sources */ = {
+		100B9B0520DC2053001147D1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10BF3EB420D1979500B29FCF /* PocketEthTests.swift in Sources */,
+				100B9B0F20DC2053001147D1 /* PocketEthTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		10BF3EB120D1979500B29FCF /* PBXTargetDependency */ = {
+		100B9B0C20DC2053001147D1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 10BF3E9A20D1979400B29FCF /* PocketEth */;
-			targetProxy = 10BF3EB020D1979500B29FCF /* PBXContainerItemProxy */;
+			target = 100B9B0020DC2053001147D1 /* PocketEth */;
+			targetProxy = 100B9B0B20DC2053001147D1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		100B9B1320DC2053001147D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D61C3C844C22DA92376223DA /* Pods-PocketEth.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = PocketEth/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = network.pokt.PocketEth;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		100B9B1420DC2053001147D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 09DD1005DC012632999AEF44 /* Pods-PocketEth.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = PocketEth/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = network.pokt.PocketEth;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		100B9B1620DC2053001147D1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A33B6F118DAC754812FF2677 /* Pods-PocketEthTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PocketEthTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = network.pokt.PocketEthTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		100B9B1720DC2053001147D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F5C54E2BEC1A07DFB5D9B30B /* Pods-PocketEthTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = PocketEthTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = network.pokt.PocketEthTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		10BF3EB620D1979600B29FCF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -432,115 +547,32 @@
 			};
 			name = Release;
 		};
-		10BF3EB920D1979600B29FCF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D61C3C844C22DA92376223DA /* Pods-PocketEth.debug.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = PocketEth/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = network.pokt.PocketEth;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "PocketEth/PocketEth-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		10BF3EBA20D1979600B29FCF /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 09DD1005DC012632999AEF44 /* Pods-PocketEth.release.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = PocketEth/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = network.pokt.PocketEth;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "PocketEth/PocketEth-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		10BF3EBC20D1979600B29FCF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A33B6F118DAC754812FF2677 /* Pods-PocketEthTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = PocketEthTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = network.pokt.PocketEthTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PocketEth.app/PocketEth";
-			};
-			name = Debug;
-		};
-		10BF3EBD20D1979600B29FCF /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F5C54E2BEC1A07DFB5D9B30B /* Pods-PocketEthTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = PocketEthTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = network.pokt.PocketEthTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PocketEth.app/PocketEth";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		100B9B1220DC2053001147D1 /* Build configuration list for PBXNativeTarget "PocketEth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				100B9B1320DC2053001147D1 /* Debug */,
+				100B9B1420DC2053001147D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		100B9B1520DC2053001147D1 /* Build configuration list for PBXNativeTarget "PocketEthTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				100B9B1620DC2053001147D1 /* Debug */,
+				100B9B1720DC2053001147D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		10BF3E9620D1979400B29FCF /* Build configuration list for PBXProject "PocketEth" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				10BF3EB620D1979600B29FCF /* Debug */,
 				10BF3EB720D1979600B29FCF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		10BF3EB820D1979600B29FCF /* Build configuration list for PBXNativeTarget "PocketEth" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				10BF3EB920D1979600B29FCF /* Debug */,
-				10BF3EBA20D1979600B29FCF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		10BF3EBB20D1979600B29FCF /* Build configuration list for PBXNativeTarget "PocketEthTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				10BF3EBC20D1979600B29FCF /* Debug */,
-				10BF3EBD20D1979600B29FCF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
