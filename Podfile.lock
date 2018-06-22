@@ -25,7 +25,7 @@ PODS:
 
 DEPENDENCIES:
   - CryptoSwift
-  - Pocket (from `https://github.com/pokt-network/pocket-ios-sdk.git`, commit `b7549298025eeec7eba4c5b770d30733a5eb60cd`, branch `master`)
+  - Pocket (from `https://github.com/pokt-network/pocket-ios-sdk.git`, commit `bc0d02d7882f3fe935ac6fe83293a4b80a5a7a49`, branch `master`)
   - "SwiftKeychainWrapper (from `git@github.com:jrendel/SwiftKeychainWrapper.git`, commit `77f73c354d695d976bcf1437fc9fbcea981aa2b4`, branch `develop`)"
   - web3swift
 
@@ -45,7 +45,7 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Pocket:
     :branch: master
-    :commit: b7549298025eeec7eba4c5b770d30733a5eb60cd
+    :commit: bc0d02d7882f3fe935ac6fe83293a4b80a5a7a49
     :git: https://github.com/pokt-network/pocket-ios-sdk.git
   SwiftKeychainWrapper:
     :branch: develop
@@ -54,7 +54,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Pocket:
-    :commit: ae9fb34f4644b6a24fc56c01d4c4213c24c77333
+    :commit: bc0d02d7882f3fe935ac6fe83293a4b80a5a7a49
     :git: https://github.com/pokt-network/pocket-ios-sdk.git
   SwiftKeychainWrapper:
     :commit: 77f73c354d695d976bcf1437fc9fbcea981aa2b4
@@ -74,6 +74,6 @@ SPEC CHECKSUMS:
   SwiftKeychainWrapper: fe63ac0e19acd227aa031043de5a8f88a3ff23da
   web3swift: 8f1248592ee8446a03b0ed6e0df15147d60d4202
 
-PODFILE CHECKSUM: 62da82757cf56ef3e6e662bc605f2eedb57b93c5
+PODFILE CHECKSUM: 5b3974b69069565029305e7a3912f38efe8a93ad
 
 COCOAPODS: 1.5.3
