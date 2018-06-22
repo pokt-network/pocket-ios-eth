@@ -13,22 +13,22 @@ import Pocket
 import BigInt
 
 public struct PocketEth: PocketPlugin {
-    public static func createWallet(privateKey: String, data: [AnyHashable : Any]?) throws -> Wallet {
+    public static func createWallet(data: [AnyHashable : Any]?) throws -> Wallet {
+        guard let privateKey = SECP256K1.generatePrivateKey() else {
+            throw PocketPluginError.walletCreationError("Invalid private key")
+        }
         guard let keyStore = PlainKeystore.init(privateKey: privateKey) else {
             throw PocketPluginError.walletCreationError("Invalid private key")
         }
-        guard let address = keyStore.addresses?.first else {
-            throw PocketPluginError.walletCreationError("Invalid wallet address")
-        }
-        guard let keystorePrivateKey = String.init(data: try keyStore.UNSAFE_getPrivateKeyData(account: address), encoding: .utf8) else {
-            throw PocketPluginError.walletCreationError("Invalid private key")
-        }
-        let wallet = Wallet(address: address.address, privateKey: keystorePrivateKey, network: "ETH", data: data)
-        return wallet
+        return try walletFromKeystore(keyStore: keyStore, data: data)
     }
     
     public static func importWallet(privateKey: String, address: String?, data: [AnyHashable : Any]?) throws -> Wallet {
-        return try createWallet(privateKey: privateKey, data: data)
+        let privateKeyData = Data(hex: privateKey)
+        guard let keyStore = PlainKeystore.init(privateKey: privateKeyData) else {
+            throw PocketPluginError.walletCreationError("Invalid private key")
+        }
+        return try walletFromKeystore(keyStore: keyStore, data: data)
     }
     
     public static func createTransaction(wallet: Wallet, params: [AnyHashable : Any]) throws -> Transaction {
@@ -45,10 +45,10 @@ public struct PocketEth: PocketPlugin {
         let gasLimit = BigUInt(gasLimitUint)
         
         // TO
-        let toString = params["to"] as? String ?? ""
-        guard let to = EthereumAddress.init(toString, type: EthereumAddress.AddressType.normal) else {
-            throw PocketPluginError.transactionCreationError("Invalid TO Address")
+        guard let toString = params["to"] as? String else {
+            throw PocketPluginError.transactionCreationError("Invalid TO param")
         }
+        let to = EthereumAddress.init(toString, type: EthereumAddress.AddressType.normal)
         
         // VALUE
         let valueUint = params["value"] as? UInt ?? 0
@@ -60,12 +60,12 @@ public struct PocketEth: PocketPlugin {
             ethTxData = data
         } else if let data = params["data"] as? [AnyHashable: Any] {
             if let functionABI = data["abi"] as? String, let funcParams = data["params"] as? [AnyObject] {
-                ethTxData = PocketEth.encodeFunction(functionABI: functionABI, parameters: funcParams);
+                ethTxData = encodeFunction(functionABI: functionABI, parameters: funcParams);
             }
         }
         
         // Create ethTx
-        var ethTx:EthereumTransaction? = nil
+        var ethTx:EthereumTransaction? = nil        
         if ethTxData != nil {
             ethTx = EthereumTransaction.init(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: ethTxData!, v: 0, r: 0, s: 0)
         } else {
@@ -73,12 +73,16 @@ public struct PocketEth: PocketPlugin {
         }
         
         // Sign transaction
-        try Web3Signer.EIP155Signer.sign(transaction: &ethTx!, privateKey: wallet.privateKey.data(using: .utf8)!, useExtraEntropy: true)
+        ethTx?.chainID = BigUInt(1)
+        try Web3Signer.EIP155Signer.sign(transaction: &ethTx!, privateKey: Data(hex: wallet.privateKey), useExtraEntropy: true)
         
         // Create pocket transaction
         let pocketTx = Transaction()
         pocketTx.network = "ETH"
-        pocketTx.serializedTx = String(data: (ethTx?.encode())!, encoding: String.Encoding.utf8)!
+        guard let serializedTxData = ethTx?.encode() else {
+            throw PocketPluginError.transactionCreationError("Error serializing signed transaction")
+        }
+        pocketTx.serializedTx = serializedTxData.toHexString().addHexPrefix()
         pocketTx.txMetadata = params
         return pocketTx
     }
@@ -110,11 +114,24 @@ public struct PocketEth: PocketPlugin {
         
         return pocketQuery
     }
-    
-    // Note: Since we don't expose a full smart contract interface, we want only to encode specific transaction calls
-    private static func encodeFunction(functionABI: String, parameters: [AnyObject]) -> Data {
-        let function = try! JSONDecoder().decode(ABIv2.Record.self, from: functionABI.data(using: .utf8)!).parse()
-        return function.encodeParameters(parameters)!
+}
+
+// Note: Since we don't expose a full smart contract interface, we want only to encode specific transaction calls
+func encodeFunction(functionABI: String, parameters: [AnyObject]) -> Data {
+    let function = try! JSONDecoder().decode(ABIv2.Record.self, from: functionABI.data(using: .utf8)!).parse()
+    return function.encodeParameters(parameters)!
+}
+
+//func dataToHexString(data: Data) -> String? {
+//    return data.map { String(format: "%02hhx", $0) }.joined()
+//}
+
+func walletFromKeystore(keyStore: PlainKeystore, data: [AnyHashable : Any]?) throws -> Wallet {
+    guard let address = keyStore.addresses?.first else {
+        throw PocketPluginError.walletCreationError("Invalid wallet address")
     }
+    let keystorePrivateKey = try keyStore.UNSAFE_getPrivateKeyData(account: address).toHexString()
+    let wallet = Wallet(address: address.address, privateKey: keystorePrivateKey, network: "ETH", data: data)
+    return wallet
 }
 
