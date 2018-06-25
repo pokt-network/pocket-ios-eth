@@ -17,8 +17,8 @@ Pod::Spec.new do |s|
 
   # Settings
   s.source            = { :git => 'https://github.com/pokt-network/pocket-ios-eth.git', :tag => s.version.to_s }
-  s.source_files      = 'PocketEth/**/*.{swift}', 'PocketEthTests/**/*.{swift}'
-  s.exclude_files     = 'docs/*'
+  s.source_files      = 'PocketEth/**/*.{swift}'
+  s.exclude_files     = 'docs/*', 'PocketEthTests/**/*.{swift}'
   s.swift_version     = '4.0'
   s.cocoapods_version = '>= 1.4.0'
 
