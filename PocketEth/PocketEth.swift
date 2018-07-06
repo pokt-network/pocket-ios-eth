@@ -67,9 +67,9 @@ public struct PocketEth: PocketPlugin {
         // Create ethTx
         var ethTx:EthereumTransaction? = nil        
         if ethTxData != nil {
-            ethTx = EthereumTransaction.init(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: ethTxData!, v: 0, r: 0, s: 0)
+            ethTx = EthereumTransaction.init(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: to!, value: value, data: ethTxData!, v: 0, r: 0, s: 0)
         } else {
-            ethTx = EthereumTransaction.init(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: Data(), v: 0, r: 0, s: 0)
+            ethTx = EthereumTransaction.init(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: to!, value: value, data: Data(), v: 0, r: 0, s: 0)
         }
         
         // Sign transaction
@@ -77,13 +77,14 @@ public struct PocketEth: PocketPlugin {
         try Web3Signer.EIP155Signer.sign(transaction: &ethTx!, privateKey: Data(hex: wallet.privateKey), useExtraEntropy: true)
         
         // Create pocket transaction
-        let pocketTx = Transaction()
+        let pocketTx = Transaction(obj: [AnyHashable: Any]())
         pocketTx.network = "ETH"
         guard let serializedTxData = ethTx?.encode() else {
             throw PocketPluginError.transactionCreationError("Error serializing signed transaction")
         }
-        pocketTx.serializedTx = serializedTxData.toHexString().addHexPrefix()
-        pocketTx.txMetadata = params
+        pocketTx.serializedTransaction = serializedTxData.toHexString().addHexPrefix()
+        pocketTx.transactionMetadata = params
+        
         return pocketTx
     }
     
