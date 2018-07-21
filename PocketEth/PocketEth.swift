@@ -48,7 +48,9 @@ public struct PocketEth: PocketPlugin {
         guard let toString = params["to"] as? String else {
             throw PocketPluginError.transactionCreationError("Invalid TO param")
         }
-        let to = EthereumAddress.init(toString, type: EthereumAddress.AddressType.normal)
+        guard let to = EthereumAddress.init(toString, type: EthereumAddress.AddressType.normal) else {
+            throw PocketPluginError.transactionCreationError("Invalid Address parameter")
+        }
         
         // VALUE
         let valueUint = params["value"] as? UInt ?? 0
@@ -67,9 +69,9 @@ public struct PocketEth: PocketPlugin {
         // Create ethTx
         var ethTx:EthereumTransaction? = nil        
         if ethTxData != nil {
-            ethTx = EthereumTransaction.init(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: to!, value: value, data: ethTxData!, v: 0, r: 0, s: 0)
+            ethTx = EthereumTransaction.init(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: ethTxData!, v: 0, r: 0, s: 0)
         } else {
-            ethTx = EthereumTransaction.init(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: to!, value: value, data: Data(), v: 0, r: 0, s: 0)
+            ethTx = EthereumTransaction.init(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: Data(), v: 0, r: 0, s: 0)
         }
         
         // Sign transaction
