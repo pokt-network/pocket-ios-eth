@@ -53,13 +53,13 @@ class PocketEthTests: XCTestCase {
         dataParams["params"] = functionParams
 
         var params = [AnyHashable : Any]()
-        params["to"] = "0x0"
+        params["to"] = "0xE1B33AFb88C77E343ECbB9388829eEf6123a980a"
         params["data"] = dataParams
         
         let wallet = try? PocketEth.createWallet(data: nil)
         let transaction = try? PocketEth.createTransaction(wallet: wallet!, params: params)
         XCTAssertNotNil(transaction)
-        XCTAssertNotNil(transaction?.serializedTx)
+        XCTAssertNotNil(transaction?.serializedTransaction)
         XCTAssertEqual("ETH", transaction?.network)
     }
     

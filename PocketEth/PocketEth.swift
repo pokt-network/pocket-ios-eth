@@ -48,7 +48,9 @@ public struct PocketEth: PocketPlugin {
         guard let toString = params["to"] as? String else {
             throw PocketPluginError.transactionCreationError("Invalid TO param")
         }
-        let to = EthereumAddress.init(toString, type: EthereumAddress.AddressType.normal)
+        guard let to = EthereumAddress.init(toString, type: EthereumAddress.AddressType.normal) else {
+            throw PocketPluginError.transactionCreationError("Invalid Address parameter")
+        }
         
         // VALUE
         let valueUint = params["value"] as? UInt ?? 0
@@ -60,16 +62,16 @@ public struct PocketEth: PocketPlugin {
             ethTxData = data
         } else if let data = params["data"] as? [AnyHashable: Any] {
             if let functionABI = data["abi"] as? String, let funcParams = data["params"] as? [AnyObject] {
-                ethTxData = encodeFunction(functionABI: functionABI, parameters: funcParams);
+                ethTxData = PocketEth.encodeFunction(functionABI: functionABI, parameters: funcParams);
             }
         }
         
         // Create ethTx
         var ethTx:EthereumTransaction? = nil        
         if ethTxData != nil {
-            ethTx = EthereumTransaction.init(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: to!, value: value, data: ethTxData!, v: 0, r: 0, s: 0)
+            ethTx = EthereumTransaction.init(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: ethTxData!, v: 0, r: 0, s: 0)
         } else {
-            ethTx = EthereumTransaction.init(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: to!, value: value, data: Data(), v: 0, r: 0, s: 0)
+            ethTx = EthereumTransaction.init(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: Data(), v: 0, r: 0, s: 0)
         }
         
         // Sign transaction
@@ -115,17 +117,12 @@ public struct PocketEth: PocketPlugin {
         
         return pocketQuery
     }
+    
+    public static func encodeFunction(functionABI: String, parameters: [AnyObject]) -> Data {
+        let function = try! JSONDecoder().decode(ABIv2.Record.self, from: functionABI.data(using: .utf8)!).parse()
+        return function.encodeParameters(parameters)!
+    }
 }
-
-// Note: Since we don't expose a full smart contract interface, we want only to encode specific transaction calls
-func encodeFunction(functionABI: String, parameters: [AnyObject]) -> Data {
-    let function = try! JSONDecoder().decode(ABIv2.Record.self, from: functionABI.data(using: .utf8)!).parse()
-    return function.encodeParameters(parameters)!
-}
-
-//func dataToHexString(data: Data) -> String? {
-//    return data.map { String(format: "%02hhx", $0) }.joined()
-//}
 
 func walletFromKeystore(keyStore: PlainKeystore, data: [AnyHashable : Any]?) throws -> Wallet {
     guard let address = keyStore.addresses?.first else {
