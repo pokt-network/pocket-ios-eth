@@ -57,7 +57,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Pocket:
-    :commit: 40df7b6ee5ee9db3ec326b0a5df51b60b3af8b99
+    :commit: ac1b25849a8f173e4d3fa402be419ce0f7535ec0
     :git: https://github.com/pokt-network/pocket-ios-sdk.git
   SwiftKeychainWrapper:
     :commit: 77f73c354d695d976bcf1437fc9fbcea981aa2b4
