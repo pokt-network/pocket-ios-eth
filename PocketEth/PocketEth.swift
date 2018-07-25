@@ -12,6 +12,10 @@ import Pocket
 @testable import web3swift
 import BigInt
 
+public enum PocketEthError: Error {
+    case invalidFunctionParametersEncoding
+}
+
 public struct PocketEth: PocketPlugin {
     public static func createWallet(data: [AnyHashable : Any]?) throws -> Wallet {
         guard let privateKey = SECP256K1.generatePrivateKey() else {
@@ -33,16 +37,13 @@ public struct PocketEth: PocketPlugin {
     
     public static func createTransaction(wallet: Wallet, params: [AnyHashable : Any]) throws -> Transaction {
         // NONCE
-        let nonceUint = params["nonce"] as? UInt ?? 0
-        let nonce = BigUInt(nonceUint)
+        let nonce = params["nonce"] as? BigUInt ?? BigUInt.init(0)
         
         // GAS PRICE (IN WEI)
-        let gasPriceUint = params["gasPrice"] as? UInt ?? 0
-        let gasPrice = BigUInt(gasPriceUint)
+        let gasPrice = params["gasPrice"] as? BigUInt ?? BigUInt.init(0)
         
         // GAS LIMIT (IN WEI)
-        let gasLimitUint = params["gasLimit"] as? UInt ?? 0
-        let gasLimit = BigUInt(gasLimitUint)
+        let gasLimit = params["gasLimit"] as? BigUInt ?? BigUInt.init(0)
         
         // TO
         guard let toString = params["to"] as? String else {
@@ -51,16 +52,15 @@ public struct PocketEth: PocketPlugin {
         let to = EthereumAddress.init(toString, type: EthereumAddress.AddressType.normal)
         
         // VALUE
-        let valueUint = params["value"] as? UInt ?? 0
-        let value = BigUInt(valueUint)
+        let value = params["value"] as? BigUInt ?? BigUInt.init(0)
         
         // DATA
         var ethTxData:Data? = nil
         if let data = params["data"] as? Data {
             ethTxData = data
         } else if let data = params["data"] as? [AnyHashable: Any] {
-            if let functionABI = data["abi"] as? String, let funcParams = data["params"] as? [AnyObject] {
-                ethTxData = PocketEth.encodeFunction(functionABI: functionABI, parameters: funcParams);
+            if let functionABI = data["abi"] as? String, let anyObjectFuncParams = data["params"] as? [AnyObject] {
+                ethTxData = try PocketEth.encodeFunction(functionABI: functionABI, parameters: anyObjectFuncParams);
             }
         }
         
@@ -73,7 +73,11 @@ public struct PocketEth: PocketPlugin {
         }
         
         // Sign transaction
-        ethTx?.chainID = BigUInt(1)
+        if let chainID = params["chainID"] as? Int {
+            ethTx?.chainID = BigUInt(chainID)
+        } else {
+            ethTx?.chainID = BigUInt(1)
+        }
         try Web3Signer.EIP155Signer.sign(transaction: &ethTx!, privateKey: Data(hex: wallet.privateKey), useExtraEntropy: true)
         
         // Create pocket transaction
@@ -83,7 +87,7 @@ public struct PocketEth: PocketPlugin {
             throw PocketPluginError.transactionCreationError("Error serializing signed transaction")
         }
         pocketTx.serializedTransaction = serializedTxData.toHexString().addHexPrefix()
-        pocketTx.transactionMetadata = try JSON.valueToJsonPrimitive(anyValue: params)
+        //pocketTx.transactionMetadata = try JSON.valueToJsonPrimitive(anyValue: params)
         
         return pocketTx
     }
@@ -118,11 +122,13 @@ public struct PocketEth: PocketPlugin {
     }
     
     // Note: Since we don't expose a full smart contract interface, we want only to encode specific transaction calls
-    public static func encodeFunction(functionABI: String, parameters: [AnyObject]) -> Data {
+    public static func encodeFunction(functionABI: String, parameters: [AnyObject]) throws -> Data {
         let function = try! JSONDecoder().decode(ABIv2.Record.self, from: functionABI.data(using: .utf8)!).parse()
-        return function.encodeParameters(parameters)!
+        guard let encodedParameters = function.encodeParameters(parameters) else {
+            throw PocketEthError.invalidFunctionParametersEncoding
+        }
+        return encodedParameters
     }
-    
 }
 
 func walletFromKeystore(keyStore: PlainKeystore, data: [AnyHashable : Any]?) throws -> Wallet {
