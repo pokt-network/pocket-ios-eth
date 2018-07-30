@@ -1,5 +1,5 @@
 # pocket-ios-eth
-An Ethereum Plugin for the [Pocket iOS SDK](https://github.com/pokt-network/pocket-ios-sdk) that conforms to the `PocketPlugin` interface.  Uses `web3.swift` and `Cryptoswift` for core cryptography and Ethereum related functions. Conforms to the Pocket API guidelines.
+An Ethereum Plugin for the [Pocket iOS SDK](https://github.com/pokt-network/pocket-ios-sdk) that conforms to the `PocketPlugin` interface.  Uses `web3.swift` and `Cryptoswift` for core cryptography and Ethereum related functions. Conforms to the [Pocket API](https://github.com/pokt-network/pocket-api/blob/master/documentation/blueprint.apib) guidelines.
 
 # Install 
 Need to install the following pod in your Podfile:
