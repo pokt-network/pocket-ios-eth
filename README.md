@@ -46,11 +46,14 @@ To create an Ethereum transaction you need the following parameters:
 
 By passing these in through the `params` dictionary the Ethereum plugin abstracts all the difficulty of creating transactions for the developer by returning a simple `Transaction` object. An example transaction in creating a Quest in BANANO Quest:
 
-```
-// Define contract function ABI
-let functionABI = "{\"constant\":false,\"inputs\":[{\"name\":\"_tokenAddress\",\"type\":\"address\"},{\"name\":\"_name\",\"type\":\"string\"},{\"name\":\"_hint\",\"type\":\"string\"},{\"name\":\"_maxWinners\",\"type\":\"uint256\"},{\"name\":\"_merkleRoot\",\"type\":\"bytes32\"},{\"name\":\"_merkleBody\",\"type\":\"string\"},{\"name\":\"_metadata\",\"type\":\"string\"}],\"name\":\"createQuest\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"}"
 
-// Define parameters
+### Define contract function ABI
+```
+let functionABI = "{\"constant\":false,\"inputs\":[{\"name\":\"_tokenAddress\",\"type\":\"address\"},{\"name\":\"_name\",\"type\":\"string\"},{\"name\":\"_hint\",\"type\":\"string\"},{\"name\":\"_maxWinners\",\"type\":\"uint256\"},{\"name\":\"_merkleRoot\",\"type\":\"bytes32\"},{\"name\":\"_merkleBody\",\"type\":\"string\"},{\"name\":\"_metadata\",\"type\":\"string\"}],\"name\":\"createQuest\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"}"
+```
+
+### Define parameters
+```
 var functionParameters = [AnyObject]()
 functionParameters.append(tokenAddress as AnyObject)
 functionParameters.append(questName.description as AnyObject)
@@ -73,23 +76,28 @@ let txParams = [
 "params": functionParameters
 ] as [AnyHashable: Any]
 ] as [AnyHashable: Any]
+```
 
-// Create transaction
+### Create transaction
+```
 guard let transaction = try? PocketEth.createTransaction(wallet: wallet, params: txParams) else {
 self.error = PocketPluginError.transactionCreationError("Error creating transaction")
 self.finish()
 return
 }
+```
 
-// Send Transaction
+### Send Transaction
+```
 Pocket.shared.sendTransaction(transaction: transaction) { (transactionResponse, error) in
 if error != nil {
 self.error = error
 self.finish()
 return
 }
-
-// Parse transaction hash response
+```
+### Parse transaction hash response
+```
 guard let txHash = transactionResponse?.hash else {
 self.error = UploadQuestOperationError.invalidTxHash
 self.finish()
