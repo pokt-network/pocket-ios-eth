@@ -29,7 +29,7 @@ if try wallet.save(passphrase: walletPassphrase) == false {
 
 `public static func importWallet(privateKey: String, address: String?, data: [AnyHashable : Any]?) throws -> Wallet`
 
-To import a wallet, the user must pass in their plaintext private key, and turn it into a hex of data using `Data(hex: privateKey)`. 
+To import a wallet, the user must pass in their plaintext private key. 
 
 ## Creating a Transaction
 
@@ -37,9 +37,9 @@ To import a wallet, the user must pass in their plaintext private key, and turn 
 
 To create an Ethereum transaction you need the following parameters:
 
-- `nonce`: A counter that increments by +1 each time a transaction is created on an account
-- `gasPrice`: The price of the transaction denominated in gwei
-- `gasLimit`: Max amount of gas to be used for transaction
+- `nonce`: A counter that increments by +1 each time a transaction is created on an account. You can retrieve the current transaction count using `eth_getTransactionCount` Query
+- `gasPrice`: The price of the transaction denominated in wei
+- `gasLimit`: Max amount of gas to be used for transaction denominated in wei
 - `to` address: Public address receiving the transaction
 - `value` (optional): Amount of ETH being sent in the transaction
 - `data` field (optional): Data such as ABI of the function being called on a smart contract can be sent through the data field
@@ -47,12 +47,12 @@ To create an Ethereum transaction you need the following parameters:
 By passing these in through the `params` dictionary the Ethereum plugin abstracts all the difficulty of creating transactions for the developer by returning a simple `Transaction` object. An example transaction in creating a Quest in BANANO Quest:
 
 
-### Define contract function ABI
+Define contract function ABI
 ```
 let functionABI = "{\"constant\":false,\"inputs\":[{\"name\":\"_tokenAddress\",\"type\":\"address\"},{\"name\":\"_name\",\"type\":\"string\"},{\"name\":\"_hint\",\"type\":\"string\"},{\"name\":\"_maxWinners\",\"type\":\"uint256\"},{\"name\":\"_merkleRoot\",\"type\":\"bytes32\"},{\"name\":\"_merkleBody\",\"type\":\"string\"},{\"name\":\"_metadata\",\"type\":\"string\"}],\"name\":\"createQuest\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"}"
 ```
 
-### Define parameters
+Define parameters
 ```
 var functionParameters = [AnyObject]()
 functionParameters.append(tokenAddress as AnyObject)
@@ -78,7 +78,7 @@ let txParams = [
 ] as [AnyHashable: Any]
 ```
 
-### Create transaction
+Create transaction
 ```
 guard let transaction = try? PocketEth.createTransaction(wallet: wallet, params: txParams) else {
 self.error = PocketPluginError.transactionCreationError("Error creating transaction")
@@ -87,7 +87,7 @@ return
 }
 ```
 
-### Send Transaction
+Send Transaction
 ```
 Pocket.shared.sendTransaction(transaction: transaction) { (transactionResponse, error) in
 if error != nil {
@@ -96,7 +96,7 @@ self.finish()
 return
 }
 ```
-### Parse transaction hash response
+Parse transaction hash response
 ```
 guard let txHash = transactionResponse?.hash else {
 self.error = UploadQuestOperationError.invalidTxHash
@@ -143,26 +143,25 @@ return
 }
 ```
 
-Creating a Query for a smart contract constant is a little bit more involved, as you need to provide the ABI interface for the method you are calling, the `functionParameters` and the `decoder`. An example in getting a list of Quests from BANANO Quest:
+Creating a Query for a smart contract constant is a little bit more involved, as you need to provide the ABI interface for the method you are calling, the `functionParameters` and the `decoder`. An example in getting a list of Quests from BANANO Quest: 
 
-### Create transaction
+Create transaction
 ```
 var tx = [AnyHashable: Any]()
 ```
 
-
-### Create ABI
+Create ABI
 
 ```
 let functionABI = "{\"constant\":true,\"inputs\":[{\"name\":\"_tokenAddress\",\"type\":\"address\"},{\"name\":\"_questIndex\",\"type\":\"uint256\"}],\"name\":\"getQuest\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"},{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"string\"},{\"name\":\"\",\"type\":\"string\"},{\"name\":\"\",\"type\":\"bytes32\"},{\"name\":\"\",\"type\":\"string\"},{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"string\"},{\"name\":\"\",\"type\":\"bool\"},{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}"
 ```
 
-### Pass in address and index
+Pass in address and index
 ```
 let functionParameters = [tokenAddress, questIndex] as [AnyObject]
 ```
 
-### Encode the ABI and parameters
+Encode the ABI and parameters
 ```
 guard let data = try? PocketEth.encodeFunction(functionABI: functionABI, parameters: functionParameters).toHexString() else {
 self.error = PocketPluginError.queryCreationError("Error creating query")
@@ -171,14 +170,14 @@ return
 }
 ```
 
-### Add parameters for an Ethereum transaction
+Add parameters for an Ethereum transaction
 ```
 tx["to"] = tavernAddress
 tx["data"] = "0x" + data
 tx["from"] = self.playerAddress
 ```
 
-### Create the parameters for the final Ethereum Query
+Create the parameters for the final Ethereum Query
 ```
 let params = [
 "rpcMethod": "eth_call",
@@ -186,14 +185,14 @@ let params = [
 ] as [AnyHashable: Any]
 ```
 
-### Create the decoder
+Create the decoder
 ```
 let decoder = [
 "returnTypes": ["address", "uint256", "string", "string", "bytes32", "string", "uint256", "string", "bool", "uint256", "uint256"]
 ] as [AnyHashable : Any]
 ```
 
-### Create Query object
+Create Query object
 ```
 guard let query = try? PocketEth.createQuery(params: params, decoder: decoder) else {
 self.error = PocketPluginError.queryCreationError("Error creating query")
@@ -202,7 +201,7 @@ return
 }
 ```
 
-### Execute the Query
+Execute the Query
 ```
 Pocket.shared.executeQuery(query: query) { (queryResponse, error) in
 if error != nil {
@@ -211,40 +210,40 @@ self.finish()
 return
 }
 ```
-### Get and parse response
+Get and parse response
 ```
 guard let questArr = queryResponse?.result?.value() as? [JSON] else {
-self.error = DownloadQuestOperationError.questParsing
-self.finish()
-return
+    self.error = DownloadQuestOperationError.questParsing
+    self.finish()
+    return
 }
 
-let creator = questArr[0].value() as? String ?? ""
-let index = questArr[1].value() as? String ?? "0"
-let name = questArr[2].value() as? String ?? ""
-let hint = questArr[3].value() as? String ?? ""
-let merkleRoot = questArr[4].value() as? String ?? ""
-let merkleBody = questArr[5].value() as? String ?? ""
-let maxWinners = questArr[6].value() as? String ?? "0"
-let metadata = questArr[7].value() as? String ?? ""
-let valid = questArr[8].value() as? Bool ?? false
-let winnersAmount = questArr[9].value() as? String ?? "0"
-let claimersAmount = questArr[10].value() as? String ?? "0"
+    let creator = questArr[0].value() as? String ?? ""
+    let index = questArr[1].value() as? String ?? "0"
+    let name = questArr[2].value() as? String ?? ""
+    let hint = questArr[3].value() as? String ?? ""
+    let merkleRoot = questArr[4].value() as? String ?? ""
+    let merkleBody = questArr[5].value() as? String ?? ""
+    let maxWinners = questArr[6].value() as? String ?? "0"
+    let metadata = questArr[7].value() as? String ?? ""
+    let valid = questArr[8].value() as? Bool ?? false
+    let winnersAmount = questArr[9].value() as? String ?? "0"
+    let claimersAmount = questArr[10].value() as? String ?? "0"
 
 self.questDict = [
-"creator": creator,
-"index": index,
-"name": name,
-"hint": hint,
-"merkleRoot": merkleRoot,
-"merkleBody": merkleBody,
-"maxWinners": maxWinners,
-"metadata": metadata,
-"valid": valid,
-"winnersAmount": winnersAmount,
-"claimersAmount": claimersAmount
+    "creator": creator,
+    "index": index,
+    "name": name,
+    "hint": hint,
+    "merkleRoot": merkleRoot,
+    "merkleBody": merkleBody,
+    "maxWinners": maxWinners,
+    "metadata": metadata,
+    "valid": valid,
+    "winnersAmount": winnersAmount,
+    "claimersAmount": claimersAmount
 ] as [AnyHashable: Any]
-self.finish()
+    self.finish()
 
 ```
 
