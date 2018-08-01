@@ -40,9 +40,9 @@ To create an Ethereum transaction you need the following parameters:
 - `nonce`: A counter that increments by +1 each time a transaction is created on an account. You can retrieve the current transaction count using `eth_getTransactionCount` Query
 - `gasPrice`: The price of the transaction denominated in wei
 - `gasLimit`: Max amount of gas to be used for transaction denominated in wei
-- `to` address: Public address receiving the transaction
+- `to`: Public address receiving the transaction
 - `value` (optional): Amount of ETH being sent in the transaction
-- `data` field (optional): Data such as ABI of the function being called on a smart contract can be sent through the data field
+- `data` (optional): Data such as ABI of the function being called on a smart contract can be sent through the data field
 
 By passing these in through the `params` dictionary the Ethereum plugin abstracts all the difficulty of creating transactions for the developer by returning a simple `Transaction` object. An example transaction in creating a Quest in BANANO Quest:
 
@@ -143,9 +143,9 @@ return
 }
 ```
 
-Creating a Query for a smart contract constant is a little bit more involved, as you need to provide the ABI interface for the method you are calling, the `functionParameters` and the `decoder`. An example in getting a list of Quests from BANANO Quest: 
+Creating a Query for a smart contract constant is a little bit more involved, as you need to provide the ABI interface for the method you are calling, the `functionParameters` and the `decoder`. An example in getting a list of Quests from BANANO Quest:
 
-Create transaction
+### Create transaction
 ```
 var tx = [AnyHashable: Any]()
 ```
