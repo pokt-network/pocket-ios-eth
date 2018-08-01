@@ -47,12 +47,12 @@ To create an Ethereum transaction you need the following parameters:
 By passing these in through the `params` dictionary the Ethereum plugin abstracts all the difficulty of creating transactions for the developer by returning a simple `Transaction` object. An example transaction in creating a Quest in BANANO Quest:
 
 
-Define contract function ABI
+### Define contract function ABI
 ```
 let functionABI = "{\"constant\":false,\"inputs\":[{\"name\":\"_tokenAddress\",\"type\":\"address\"},{\"name\":\"_name\",\"type\":\"string\"},{\"name\":\"_hint\",\"type\":\"string\"},{\"name\":\"_maxWinners\",\"type\":\"uint256\"},{\"name\":\"_merkleRoot\",\"type\":\"bytes32\"},{\"name\":\"_merkleBody\",\"type\":\"string\"},{\"name\":\"_metadata\",\"type\":\"string\"}],\"name\":\"createQuest\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"}"
 ```
 
-Define parameters
+### Define parameters
 ```
 var functionParameters = [AnyObject]()
 functionParameters.append(tokenAddress as AnyObject)
@@ -78,7 +78,7 @@ let txParams = [
 ] as [AnyHashable: Any]
 ```
 
-Create transaction
+### Create transaction
 ```
 guard let transaction = try? PocketEth.createTransaction(wallet: wallet, params: txParams) else {
 self.error = PocketPluginError.transactionCreationError("Error creating transaction")
@@ -87,7 +87,7 @@ return
 }
 ```
 
-Send Transaction
+### Send Transaction
 ```
 Pocket.shared.sendTransaction(transaction: transaction) { (transactionResponse, error) in
 if error != nil {
@@ -96,7 +96,7 @@ self.finish()
 return
 }
 ```
-Parse transaction hash response
+### Parse transaction hash response
 ```
 guard let txHash = transactionResponse?.hash else {
 self.error = UploadQuestOperationError.invalidTxHash
@@ -150,18 +150,19 @@ Create transaction
 var tx = [AnyHashable: Any]()
 ```
 
-Create ABI
+
+### Create ABI
 
 ```
 let functionABI = "{\"constant\":true,\"inputs\":[{\"name\":\"_tokenAddress\",\"type\":\"address\"},{\"name\":\"_questIndex\",\"type\":\"uint256\"}],\"name\":\"getQuest\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"},{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"string\"},{\"name\":\"\",\"type\":\"string\"},{\"name\":\"\",\"type\":\"bytes32\"},{\"name\":\"\",\"type\":\"string\"},{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"string\"},{\"name\":\"\",\"type\":\"bool\"},{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}"
 ```
 
-Pass in address and index
+### Pass in address and index
 ```
 let functionParameters = [tokenAddress, questIndex] as [AnyObject]
 ```
 
-Encode the ABI and parameters
+### Encode the ABI and parameters
 ```
 guard let data = try? PocketEth.encodeFunction(functionABI: functionABI, parameters: functionParameters).toHexString() else {
 self.error = PocketPluginError.queryCreationError("Error creating query")
@@ -170,14 +171,14 @@ return
 }
 ```
 
-Add parameters for an Ethereum transaction
+### Add parameters for an Ethereum transaction
 ```
 tx["to"] = tavernAddress
 tx["data"] = "0x" + data
 tx["from"] = self.playerAddress
 ```
 
-Create the parameters for the final Ethereum Query
+### Create the parameters for the final Ethereum Query
 ```
 let params = [
 "rpcMethod": "eth_call",
@@ -185,14 +186,14 @@ let params = [
 ] as [AnyHashable: Any]
 ```
 
-Create the decoder
+### Create the decoder
 ```
 let decoder = [
 "returnTypes": ["address", "uint256", "string", "string", "bytes32", "string", "uint256", "string", "bool", "uint256", "uint256"]
 ] as [AnyHashable : Any]
 ```
 
-Create Query object
+### Create Query object
 ```
 guard let query = try? PocketEth.createQuery(params: params, decoder: decoder) else {
 self.error = PocketPluginError.queryCreationError("Error creating query")
@@ -201,7 +202,7 @@ return
 }
 ```
 
-Execute the Query
+### Execute the Query
 ```
 Pocket.shared.executeQuery(query: query) { (queryResponse, error) in
 if error != nil {
@@ -210,7 +211,7 @@ self.finish()
 return
 }
 ```
-Get and parse response
+### Get and parse response
 ```
 guard let questArr = queryResponse?.result?.value() as? [JSON] else {
     self.error = DownloadQuestOperationError.questParsing
