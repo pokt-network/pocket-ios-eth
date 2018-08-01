@@ -64,17 +64,17 @@ functionParameters.append(merkleBody as AnyObject)
 functionParameters.append(metadata as AnyObject)
 
 let txParams = [
-"from": wallet.address,
-"nonce": BigUInt.init(transactionCount),
-"to": tavernAddress,
-"value": BigUInt.init(ethPrizeWei),
-"chainID": AppConfiguration.chainID,
-"gasLimit": BigUInt.init(2000000),
-"gasPrice": BigUInt.init(1000000000),
-"data": [
-"abi": functionABI,
-"params": functionParameters
-] as [AnyHashable: Any]
+    "from": wallet.address,
+    "nonce": BigUInt.init(transactionCount),
+    "to": tavernAddress,
+    "value": BigUInt.init(ethPrizeWei),
+    "chainID": AppConfiguration.chainID,
+    "gasLimit": BigUInt.init(2000000),
+    "gasPrice": BigUInt.init(1000000000),
+    "data": [
+        "abi": functionABI,
+        "params": functionParameters
+    ] as [AnyHashable: Any]
 ] as [AnyHashable: Any]
 ```
 
@@ -145,55 +145,74 @@ return
 
 Creating a Query for a smart contract constant is a little bit more involved, as you need to provide the ABI interface for the method you are calling, the `functionParameters` and the `decoder`. An example in getting a list of Quests from BANANO Quest:
 
+### Create transaction
 ```
-// Create transaction
 var tx = [AnyHashable: Any]()
+```
 
-// Create ABI
+
+### Create ABI
+
+```
 let functionABI = "{\"constant\":true,\"inputs\":[{\"name\":\"_tokenAddress\",\"type\":\"address\"},{\"name\":\"_questIndex\",\"type\":\"uint256\"}],\"name\":\"getQuest\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"},{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"string\"},{\"name\":\"\",\"type\":\"string\"},{\"name\":\"\",\"type\":\"bytes32\"},{\"name\":\"\",\"type\":\"string\"},{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"string\"},{\"name\":\"\",\"type\":\"bool\"},{\"name\":\"\",\"type\":\"uint256\"},{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}"
+```
 
-// Pass in address and index
+### Pass in address and index
+```
 let functionParameters = [tokenAddress, questIndex] as [AnyObject]
+```
 
-// Encode the ABI and parameters
+### Encode the ABI and parameters
+```
 guard let data = try? PocketEth.encodeFunction(functionABI: functionABI, parameters: functionParameters).toHexString() else {
 self.error = PocketPluginError.queryCreationError("Error creating query")
 self.finish()
 return
 }
+```
 
-// Add parameters for an Ethereum transaction
+### Add parameters for an Ethereum transaction
+```
 tx["to"] = tavernAddress
 tx["data"] = "0x" + data
 tx["from"] = self.playerAddress
+```
 
-// Create the parameters for the final Ethereum Query
+### Create the parameters for the final Ethereum Query
+```
 let params = [
 "rpcMethod": "eth_call",
 "rpcParams": [tx, "latest"]
 ] as [AnyHashable: Any]
+```
 
-// Create the decoder 
+### Create the decoder
+```
 let decoder = [
 "returnTypes": ["address", "uint256", "string", "string", "bytes32", "string", "uint256", "string", "bool", "uint256", "uint256"]
 ] as [AnyHashable : Any]
+```
 
-// Create Query object 
+### Create Query object
+```
 guard let query = try? PocketEth.createQuery(params: params, decoder: decoder) else {
 self.error = PocketPluginError.queryCreationError("Error creating query")
 self.finish()
 return
 }
+```
 
-// Execute the Query
+### Execute the Query
+```
 Pocket.shared.executeQuery(query: query) { (queryResponse, error) in
 if error != nil {
 self.error = error
 self.finish()
 return
 }
-
-// Get and parse response
+```
+### Get and parse response
+```
 guard let questArr = queryResponse?.result?.value() as? [JSON] else {
 self.error = DownloadQuestOperationError.questParsing
 self.finish()
