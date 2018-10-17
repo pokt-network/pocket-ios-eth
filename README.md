@@ -8,6 +8,24 @@ Need to install the following pod in your Podfile:
 
 `pod 'Pocket', :git => 'https://github.com/pokt-network/pocket-ios-eth.git', :branch => 'master'`
 
+
+# Before hand
+Pocket Network offers a node running in Rinkeby for testing.
+`https://red.pokt.network`
+
+To easily set it up:
+
+1- In your `appDelegate` import `Pocket` and `PocketEth`
+2- Add `Configuration` protocol to the class:
+    `class AppDelegate: UIResponder, UIApplicationDelegate, Configuration, {`
+
+3- Implement `nodeURL` with the node url:
+   `var nodeURL: URL {
+        get {
+            return URL.init(string: "https://red.pokt.network")!
+        }
+    }`
+
 # Functionality
 
 ## Creating a Wallet
