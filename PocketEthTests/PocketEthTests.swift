@@ -26,22 +26,24 @@ class PocketEthTests: XCTestCase {
         XCTAssertNotNil(wallet.address)
         XCTAssertNotNil(wallet.privateKey)
         XCTAssertNotNil(wallet.network)
+        XCTAssertNotNil(wallet.subnetwork)
     }
     
     // Tests for createWallet()
     func testCreateWalletSuccess() {
-        let wallet = try? PocketEth.createWallet(data: nil)
+        let wallet = try? PocketEth.createWallet(subnetwork: "4", data: nil)
         testWalletValidity(wallet: wallet!)
     }
     
     // Tests for importWallet()
     func testImportWallet() {
-        let walletToImport = try? PocketEth.createWallet(data: nil)
-        let importedWallet = try? PocketEth.importWallet(privateKey: (walletToImport?.privateKey)!, address: walletToImport?.address, data: walletToImport?.data)
+        let walletToImport = try? PocketEth.createWallet(subnetwork: "4", data: nil)
+        let importedWallet = try? PocketEth.importWallet(privateKey: walletToImport?.privateKey ?? "", subnetwork: walletToImport?.subnetwork ?? "", address: walletToImport?.address, data: walletToImport?.data)
         testWalletValidity(wallet: importedWallet!)
         XCTAssertEqual(walletToImport?.privateKey, importedWallet?.privateKey)
         XCTAssertEqual(walletToImport?.address, importedWallet?.address)
         XCTAssertEqual(walletToImport?.network, importedWallet?.network)
+        XCTAssertEqual(walletToImport?.subnetwork, importedWallet?.subnetwork)
     }
     
     // Tests for createTransaction()
@@ -56,15 +58,16 @@ class PocketEthTests: XCTestCase {
         params["to"] = "0xE1B33AFb88C77E343ECbB9388829eEf6123a980a"
         params["data"] = dataParams
         
-        let wallet = try? PocketEth.createWallet(data: nil)
+        let wallet = try? PocketEth.createWallet(subnetwork: "4", data: nil)
         let transaction = try? PocketEth.createTransaction(wallet: wallet!, params: params)
         XCTAssertNotNil(transaction)
         XCTAssertNotNil(transaction?.serializedTransaction)
         XCTAssertEqual("ETH", transaction?.network)
+        XCTAssertEqual("4", transaction?.subnetwork)
     }
     
     func testCreateTransactionTOError() {
-        let wallet = try? PocketEth.createWallet(data: nil)
+        let wallet = try? PocketEth.createWallet(subnetwork: "4", data: nil)
         
         var params = [AnyHashable : Any]()
         params["to"] = nil
@@ -74,14 +77,15 @@ class PocketEthTests: XCTestCase {
     
     // Tests for createQuery()
     func testCreateQuerySuccess() {
-        let query = try? PocketEth.createQuery(params: ["rpcMethod": "eth_getTransactionCount", "rpcParams": ["0x0", "latest"]], decoder: nil)
+        let query = try? PocketEth.createQuery(subnetwork: "4", params: ["rpcMethod": "eth_getTransactionCount", "rpcParams": ["0x0", "latest"]], decoder: nil)
         XCTAssertNotNil(query)
         XCTAssertNotNil(query?.data)
         XCTAssertEqual(query?.network, "ETH")
+        XCTAssertEqual(query?.subnetwork, "4")
         XCTAssertNotNil(query?.decoder)
     }
     
     func testCreateQueryRPCError() {
-        XCTAssertThrowsError(try PocketEth.createQuery(params: ["failedKey": "failedValue"], decoder: nil))
+        XCTAssertThrowsError(try PocketEth.createQuery(subnetwork: "4", params: ["failedKey": "failedValue"], decoder: nil))
     }
 }

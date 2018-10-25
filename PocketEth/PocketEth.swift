@@ -17,22 +17,22 @@ public enum PocketEthError: Error {
 }
 
 public struct PocketEth: PocketPlugin {
-    public static func createWallet(data: [AnyHashable : Any]?) throws -> Wallet {
+    public static func createWallet(subnetwork: String, data: [AnyHashable : Any]?) throws -> Wallet {
         guard let privateKey = SECP256K1.generatePrivateKey() else {
             throw PocketPluginError.walletCreationError("Invalid private key")
         }
         guard let keyStore = PlainKeystore.init(privateKey: privateKey) else {
             throw PocketPluginError.walletCreationError("Invalid private key")
         }
-        return try walletFromKeystore(keyStore: keyStore, data: data)
+        return try walletFromKeystore(keyStore: keyStore, subnetwork: subnetwork, data: data)
     }
     
-    public static func importWallet(privateKey: String, address: String?, data: [AnyHashable : Any]?) throws -> Wallet {
+    public static func importWallet(privateKey: String, subnetwork: String, address: String?, data: [AnyHashable: Any]?) throws -> Wallet {
         let privateKeyData = Data(hex: privateKey)
         guard let keyStore = PlainKeystore.init(privateKey: privateKeyData) else {
             throw PocketPluginError.walletCreationError("Invalid private key")
         }
-        return try walletFromKeystore(keyStore: keyStore, data: data)
+        return try walletFromKeystore(keyStore: keyStore, subnetwork: subnetwork, data: data)
     }
     
     public static func createTransaction(wallet: Wallet, params: [AnyHashable : Any]) throws -> Transaction {
@@ -83,17 +83,16 @@ public struct PocketEth: PocketPlugin {
         // Create pocket transaction
         let pocketTx = Transaction(obj: [AnyHashable: Any]())
         pocketTx.network = "ETH"
+        pocketTx.subnetwork = wallet.subnetwork
         guard let serializedTxData = ethTx?.encode() else {
             throw PocketPluginError.transactionCreationError("Error serializing signed transaction")
         }
         pocketTx.serializedTransaction = serializedTxData.toHexString().addHexPrefix()
-        //pocketTx.transactionMetadata = try JSON.valueToJsonPrimitive(anyValue: params)
-        
         return pocketTx
     }
     
-    public static func createQuery(params: [AnyHashable : Any], decoder: [AnyHashable : Any]?) throws -> Query {
-        let pocketQuery = Query()
+    public static func createQuery(subnetwork: String, params: [AnyHashable: Any], decoder: [AnyHashable: Any]?) throws -> Query {
+        let pocketQuery = Query(network: "ETH", subnetwork: subnetwork, data: nil, decoder: nil)
         
         // Create data param
         var queryParams = [AnyHashable: Any]()
@@ -117,6 +116,7 @@ public struct PocketEth: PocketPlugin {
         
         // Assign network
         pocketQuery.network = "ETH"
+        pocketQuery.subnetwork = subnetwork
         
         return pocketQuery
     }
@@ -131,12 +131,12 @@ public struct PocketEth: PocketPlugin {
     }
 }
 
-func walletFromKeystore(keyStore: PlainKeystore, data: [AnyHashable : Any]?) throws -> Wallet {
+func walletFromKeystore(keyStore: PlainKeystore, subnetwork: String, data: [AnyHashable : Any]?) throws -> Wallet {
     guard let address = keyStore.addresses?.first else {
         throw PocketPluginError.walletCreationError("Invalid wallet address")
     }
     let keystorePrivateKey = try keyStore.UNSAFE_getPrivateKeyData(account: address).toHexString()
-    let wallet = Wallet(address: address.address, privateKey: keystorePrivateKey, network: "ETH", data: data)
+    let wallet = Wallet(address: address.address, privateKey: keystorePrivateKey, network: "ETH", subnetwork: subnetwork, data: data)
     return wallet
 }
 
