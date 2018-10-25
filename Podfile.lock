@@ -57,7 +57,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Pocket:
-    :commit: 9ac623b99ce552665b6d596be5db9ec46e43e013
+    :commit: 56221d8cc79c99b41764262fabae7fa1fca3c353
     :git: https://github.com/pokt-network/pocket-ios-sdk.git
   SwiftKeychainWrapper:
     :commit: 77f73c354d695d976bcf1437fc9fbcea981aa2b4
@@ -67,7 +67,7 @@ SPEC CHECKSUMS:
   BigInt: 76b5dfdfa3e2e478d4ffdf161aeede5502e2742f
   CryptoSwift: 6c778d69282bed3b4e975ff97a79d074f20bb011
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
-  Pocket: 40c168b11a5ac170336445a1d34accc6c8c4989e
+  Pocket: 99b3a1dc2762e7680bff4ff57faa87c3040980db
   PromiseKit: e1425568123ec844a944c93f2bcb29d511d39cf5
   Result: 1b3e431f37cbcd3ad89c6aa9ab0ae55515fae3b6
   RNCryptor: c93d19029dcf7ff160aca0f24d6c9e7b0d82f664

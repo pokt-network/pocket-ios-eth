@@ -11,7 +11,7 @@ Need to install the following pod in your Podfile:
 
 # Before hand
 Pocket Network offers a node running in Rinkeby for testing.
-`https://red.pokt.network`
+`https://ethereum.pokt.network`
 
 To easily set it up:
 
@@ -22,22 +22,28 @@ To easily set it up:
 3- Implement `nodeURL` with the node url:
    `var nodeURL: URL {
         get {
-            return URL.init(string: "https://red.pokt.network")!
+            return URL.init(string: "https://ethereum.pokt.network")!
         }
     }`
+
+# Subnetwork
+Currently the Pocket team is offering the `https://ethereum.pokt.network` endpoint, which supports both Mainnet and the Rinkeby testnet with the following `subnetwork` identifiers:
+
+`1` for Mainnet
+`4` for Rinkeby
 
 # Functionality
 
 ## Creating a Wallet
 
-`public static func createWallet(data: [AnyHashable : Any]?) throws -> Wallet`
+`public static func createWallet(subnetwork: String, data: [AnyHashable : Any]?) throws -> Wallet`
 
 The wallet creation primarily uses the web3 library and the `SECP256k1.generatePrivateKey` function and saves to the keystore on the device. Developers do not have to worry about encrypting, storing or retrieving the wallet from the device.
 
 Example from [BANANO Quest](https://github.com/pokt-network/banano-quest):
 
 ```
-let wallet = try PocketEth.createWallet(data: nil)
+let wallet = try PocketEth.createWallet(subnetwork: subnetwork, data: nil)
 if try wallet.save(passphrase: walletPassphrase) == false {
     throw PlayerPersistenceError.walletCreationError
 }
@@ -45,7 +51,7 @@ if try wallet.save(passphrase: walletPassphrase) == false {
 
 ## Importing a Wallet
 
-`public static func importWallet(privateKey: String, address: String?, data: [AnyHashable : Any]?) throws -> Wallet`
+`public static func importWallet(subnetwork: String, privateKey: String, address: String?, data: [AnyHashable : Any]?) throws -> Wallet`
 
 To import a wallet, the user must pass in their plaintext private key. 
 
@@ -130,9 +136,9 @@ self.finish()
 
 ## Creating a Query
 
-`public static func createQuery(params: [AnyHashable : Any], decoder: [AnyHashable : Any]?) throws -> Query`
+`public static func createQuery(subnetwork: String, params: [AnyHashable: Any], decoder: [AnyHashable: Any]?) throws -> Query`
 
-To create a Pocket Query for Ethereum you'll need the `params` for the specific [JSON RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC) call you are wishing to make. There are two types of params to create a Query:
+To create a Pocket Query for Ethereum you'll need the `subnetwork` and `params` for the specific [JSON RPC](https://github.com/ethereum/wiki/wiki/JSON-RPC) call you are wishing to make. There are two types of params to create a Query:
 
 - `rpcMethod`: Name of the smart contract method you are calling 
 - `rpcParams`: Inputs of the smart contract method you are calling
