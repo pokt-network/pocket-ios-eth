@@ -5,11 +5,6 @@ target 'PocketEth' do
     # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
     use_frameworks!
 
-    pod 'Pocket', :git => 'https://github.com/pokt-network/pocket-ios-sdk.git', :branch => 'master'
-    pod 'web3swift'
-    pod 'CryptoSwift'
-    pod 'SwiftKeychainWrapper', :git => 'git@github.com:jrendel/SwiftKeychainWrapper.git', :branch => 'develop', :commit => '77f73c354d695d976bcf1437fc9fbcea981aa2b4'
-
     target 'PocketEthTests' do
         inherit! :search_paths
         # Pods for testing

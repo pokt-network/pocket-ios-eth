@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.version   = '0.0.1'
   s.license   = { :type => 'MIT' }
   s.homepage  = 'https://github.com/pokt-network/pocket-ios-eth'
-  s.authors   = { 'Luis C. de Leon' => 'luis@pokt.network' }
+  s.authors   = { 'Luis C. de Leon' => 'luis@pokt.network', 'Pabel Nunez L.' => 'pabel@pokt.network' }
   s.summary   = 'An Ethereum Plugin for the Pocket iOS SDK.'
 
   # Settings
@@ -27,5 +27,4 @@ Pod::Spec.new do |s|
   s.dependency 'Pocket'
   s.dependency 'web3swift'
   s.dependency 'CryptoSwift'
-  s.dependency 'SwiftKeychainWrapper'
 end
