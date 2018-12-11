@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   # Meta
   s.name      = 'PocketEth'
-  s.version   = '0.0.1'
+  s.version   = '0.0.2'
   s.license   = { :type => 'MIT' }
   s.homepage  = 'https://github.com/pokt-network/pocket-ios-eth'
   s.authors   = { 'Luis C. de Leon' => 'luis@pokt.network', 'Pabel Nunez L.' => 'pabel@pokt.network' }
