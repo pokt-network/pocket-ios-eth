@@ -16,7 +16,7 @@ public enum PocketEthError: Error {
     case invalidFunctionParametersEncoding
 }
 
-public struct PocketEth: PocketPlugin {
+public class PocketEth: Pocket, PocketPlugin {
     public static func createWallet(subnetwork: String, data: [AnyHashable : Any]?) throws -> Wallet {
         guard let privateKey = SECP256K1.generatePrivateKey() else {
             throw PocketPluginError.walletCreationError("Invalid private key")
