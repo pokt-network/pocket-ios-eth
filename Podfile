@@ -3,6 +3,7 @@ platform :ios, '11.4'
 
 target 'PocketEth' do
     
+    pod 'Pocket', '~> 0.0.2'
     pod 'web3swift'
     pod 'CryptoSwift'
     
