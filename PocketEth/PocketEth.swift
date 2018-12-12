@@ -8,12 +8,23 @@
 
 import Foundation
 import Pocket
-// TODO: Find a better way to do this
-@testable import web3swift
+import Web3swift
+import secp256k1_swift
+import EthereumAddress
+import EthereumABI
 import BigInt
 
 public enum PocketEthError: Error {
     case invalidFunctionParametersEncoding
+}
+
+extension String {
+    public func addHexPrefix() -> String {
+        if !self.hasPrefix("0x") {
+            return "0x" + self
+        }
+        return self
+    }
 }
 
 public class PocketEth: Pocket, PocketPlugin {
@@ -26,7 +37,7 @@ public class PocketEth: Pocket, PocketPlugin {
         }
         return try walletFromKeystore(keyStore: keyStore, subnetwork: subnetwork, data: data)
     }
-    
+
     public static func importWallet(privateKey: String, subnetwork: String, address: String?, data: [AnyHashable: Any]?) throws -> Wallet {
         let privateKeyData = Data(hex: privateKey)
         guard let keyStore = PlainKeystore.init(privateKey: privateKeyData) else {
@@ -34,26 +45,26 @@ public class PocketEth: Pocket, PocketPlugin {
         }
         return try walletFromKeystore(keyStore: keyStore, subnetwork: subnetwork, data: data)
     }
-    
+
     public static func createTransaction(wallet: Wallet, params: [AnyHashable : Any]) throws -> Transaction {
         // NONCE
         let nonce = params["nonce"] as? BigUInt ?? BigUInt.init(0)
-        
+
         // GAS PRICE (IN WEI)
         let gasPrice = params["gasPrice"] as? BigUInt ?? BigUInt.init(0)
-        
+
         // GAS LIMIT (IN WEI)
         let gasLimit = params["gasLimit"] as? BigUInt ?? BigUInt.init(0)
-        
+
         // TO
         guard let toString = params["to"] as? String else {
             throw PocketPluginError.transactionCreationError("Invalid TO param")
         }
         let to = EthereumAddress.init(toString, type: EthereumAddress.AddressType.normal)
-        
+
         // VALUE
         let value = params["value"] as? BigUInt ?? BigUInt.init(0)
-        
+
         // DATA
         var ethTxData:Data? = nil
         if let data = params["data"] as? Data {
@@ -63,7 +74,7 @@ public class PocketEth: Pocket, PocketPlugin {
                 ethTxData = try PocketEth.encodeFunction(functionABI: functionABI, parameters: anyObjectFuncParams);
             }
         }
-        
+
         // Create ethTx
         var ethTx:EthereumTransaction? = nil
         if ethTxData != nil {
@@ -71,15 +82,17 @@ public class PocketEth: Pocket, PocketPlugin {
         } else {
             ethTx = EthereumTransaction.init(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: to!, value: value, data: Data(), v: 0, r: 0, s: 0)
         }
-        
+
         // Sign transaction
         if let chainID = params["chainID"] as? Int {
-            ethTx?.chainID = BigUInt(chainID)
+            let chainIDStr = String.init(chainID)
+            let chainIDBigInt = BigUInt.init(stringLiteral: chainIDStr)
+            ethTx?.UNSAFE_setChainID(chainIDBigInt)
         } else {
-            ethTx?.chainID = BigUInt(1)
+            ethTx?.UNSAFE_setChainID(BigUInt(1))
         }
         try Web3Signer.EIP155Signer.sign(transaction: &ethTx!, privateKey: Data(hex: wallet.privateKey), useExtraEntropy: true)
-        
+
         // Create pocket transaction
         let pocketTx = Transaction(obj: [AnyHashable: Any]())
         pocketTx.network = "ETH"
@@ -90,10 +103,10 @@ public class PocketEth: Pocket, PocketPlugin {
         pocketTx.serializedTransaction = serializedTxData.toHexString().addHexPrefix()
         return pocketTx
     }
-    
+
     public static func createQuery(subnetwork: String, params: [AnyHashable: Any], decoder: [AnyHashable: Any]?) throws -> Query {
         let pocketQuery = Query(network: "ETH", subnetwork: subnetwork, data: nil, decoder: nil)
-        
+
         // Create data param
         var queryParams = [AnyHashable: Any]()
         if let rpcMethod = params["rpcMethod"] as? String, let rpcParams = params["rpcParams"] as? [Any] {
@@ -102,9 +115,9 @@ public class PocketEth: Pocket, PocketPlugin {
         } else {
             throw PocketPluginError.queryCreationError("Invalid RPC params")
         }
-        
+
         pocketQuery.data = try JSON.valueToJsonPrimitive(anyValue: queryParams)
-        
+
         // Create decoder param
         var decoderParams = [AnyHashable: Any]()
         if decoder != nil {
@@ -113,17 +126,17 @@ public class PocketEth: Pocket, PocketPlugin {
             }
         }
         pocketQuery.decoder = try JSON.valueToJsonPrimitive(anyValue: decoderParams)
-        
+
         // Assign network
         pocketQuery.network = "ETH"
         pocketQuery.subnetwork = subnetwork
-        
+
         return pocketQuery
     }
-    
+
     // Note: Since we don't expose a full smart contract interface, we want only to encode specific transaction calls
     public static func encodeFunction(functionABI: String, parameters: [AnyObject]) throws -> Data {
-        let function = try! JSONDecoder().decode(ABIv2.Record.self, from: functionABI.data(using: .utf8)!).parse()
+        let function = try! JSONDecoder().decode(ABI.Record.self, from: functionABI.data(using: .utf8)!).parse()
         guard let encodedParameters = function.encodeParameters(parameters) else {
             throw PocketEthError.invalidFunctionParametersEncoding
         }
@@ -139,5 +152,3 @@ func walletFromKeystore(keyStore: PlainKeystore, subnetwork: String, data: [AnyH
     let wallet = Wallet(address: address.address, privateKey: keystorePrivateKey, network: "ETH", subnetwork: subnetwork, data: data)
     return wallet
 }
-
-
