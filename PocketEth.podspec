@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
 
   # Deployment Targets
   s.ios.deployment_target = '11.4'
-  s.dependency 'Pocket'
+  s.dependency 'Pocket', '~> 0.0.2'
   s.dependency 'web3swift'
   s.dependency 'CryptoSwift'
 end
