@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   # Meta
   s.name      = 'PocketEth'
-  s.version   = '0.0.2'
+  s.version   = '0.0.3'
   s.license   = { :type => 'MIT' }
   s.homepage  = 'https://github.com/pokt-network/pocket-ios-eth'
   s.authors   = { 'Luis C. de Leon' => 'luis@pokt.network', 'Pabel Nunez L.' => 'pabel@pokt.network' }
@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
 
   # Deployment Targets
   s.ios.deployment_target = '11.4'
-  s.dependency 'Pocket', '~> 0.0.2'
+  s.dependency 'Pocket', '~> 0.0.3'
   s.dependency 'web3swift'
   s.dependency 'CryptoSwift'
 end
