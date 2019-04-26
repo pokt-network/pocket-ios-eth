@@ -1,3 +1,6 @@
+# NOTE:
+This repository has been deprecated, please visit the [PocketSwift repository for the latest on Pocket iOS client development.](https://github.com/pokt-network/pocket-swift)
+
 # pocket-ios-eth
 An Ethereum Plugin for the [Pocket iOS SDK](https://github.com/pokt-network/pocket-ios-sdk) that conforms to the `PocketPlugin` interface.  Uses `web3.swift` and `Cryptoswift` for core cryptography and Ethereum related functions. Conforms to the [Pocket API](https://github.com/pokt-network/pocket-api/blob/master/documentation/blueprint.apib) guidelines.
 
